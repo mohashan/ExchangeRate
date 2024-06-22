@@ -1,0 +1,30 @@
+﻿@page
+<div class="container">
+    <div class="row p-1">
+        <div class="col-1">CurrencyPair</div>
+        <div class="col-5"><input type="text" id="currencyPairInput" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-1">Rate</div>
+        <div class="col-5">
+            <input type="number" name="rate" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="w-100" id="rateInput">
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6 text-end">
+            <input type="button" id="sendButton" value="Send" />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <hr />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <ul id="rateList"></ul>
+        </div>
+    </div>
+</div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/rate.js"></script>
