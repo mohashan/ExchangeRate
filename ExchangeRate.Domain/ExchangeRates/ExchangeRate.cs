@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExchangeRate.Domain.Abstract;
+using ExchangeRate.Domain.Abstractions;
 
 namespace ExchangeRate.Domain.ExchangeRates;
 public sealed class ExchangeRate : Entity
@@ -13,12 +13,22 @@ public sealed class ExchangeRate : Entity
 
     }
 
-    public ExchangeRate(Guid id, CurrencyPair pair, decimal rate) : base(id)
+    public ExchangeRate(Guid id, CurrencyPair pair, decimal rate, Source lastUpdateSource) : base(id)
     {
         Pair = pair;
         Rate = rate;
+        LastUpdateSource = lastUpdateSource;
     }
-    public Source Source { get; private set; }
+
+    public static ExchangeRate NewRate(CurrencyPair pair, decimal rate, Source source)
+    {
+        var ExRate = new ExchangeRate(Guid.NewGuid(), pair,rate,source);
+
+        ExRate.LastUpdateOnUtc = DateTime.UtcNow;
+
+        return ExRate;
+    }
+    public Source LastUpdateSource { get; internal set; }
     public CurrencyPair Pair { get; private set; }
     public decimal Rate { get; private set; }
     public DateTime? LastUpdateOnUtc { get; internal set; }
