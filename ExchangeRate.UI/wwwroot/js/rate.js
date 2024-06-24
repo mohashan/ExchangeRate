@@ -7,11 +7,9 @@ document.getElementById("sendButton").disabled = true;
 
 connection.on("NewRate", function (request) {
     var li;
-    //for (var i = 0; i < request.length; i++) {
         li = document.createElement("li");
         document.getElementById("rateList").appendChild(li);
-        li.textContent = `${request.rate.key} : ${request.rate.value}`;
-    //}
+        li.textContent = `${request.rate.item1} : ${request.rate.item2}`;
 });
 
 connection.start().then(function () {
@@ -29,5 +27,10 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     connection.invoke("ReceiveAsync", dataToSend).catch(function (err) {
         return console.error(err.toString());
     });
+    event.preventDefault();
+});
+
+document.getElementById("getButton").addEventListener("click", function (event) {
+    fetch("/api/Exchangerate/UpdateFromOrigin");
     event.preventDefault();
 });

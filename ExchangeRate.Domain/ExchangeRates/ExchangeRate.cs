@@ -28,8 +28,16 @@ public sealed class ExchangeRate : Entity
 
         return ExRate;
     }
+
+    public void Update(decimal rate, Source lastUpdateSource)
+    {
+        Rate = rate;
+        LastUpdateSource = lastUpdateSource;
+    }
+
     public Source LastUpdateSource { get; internal set; }
     public CurrencyPair Pair { get; private set; }
-    public decimal Rate { get; private set; }
+    public decimal Rate { get; private set; } 
+    
     public DateTime? LastUpdateOnUtc { get; internal set; }
 }

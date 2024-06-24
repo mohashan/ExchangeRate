@@ -11,9 +11,9 @@ namespace ExchangeRate.Application.ExchangeRates.UpdateRate;
 
 public class SendNotification : NotificationMessage
 {
-    public SendNotification(KeyValuePair<string, decimal> rate)
+    public SendNotification(Tuple<string, decimal> rate)
     {
         Rate = rate;
     }
-    public KeyValuePair<string, decimal> Rate { get; private set; }
+    public Tuple<string, decimal> Rate { get; private set; }
 }

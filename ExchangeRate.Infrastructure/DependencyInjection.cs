@@ -1,8 +1,10 @@
 ﻿using ExchangeRate.Application.Abstractions.Notification;
+using ExchangeRate.Application.Abstractions.ServiceProviders;
 using ExchangeRate.Domain.Abstractions;
 using ExchangeRate.Domain.ExchangeRates;
 using ExchangeRate.Infrastructure.Hubs;
 using ExchangeRate.Infrastructure.Repositories;
+using ExchangeRate.Infrastructure.ServiceProviders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,11 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<INotificationService,NotificationService>();
+
+        services.AddScoped<IRateProvider, AlphaVantageRateProvider>();
+
+        services.Configure<AlphaVantageSettings>(configuration.GetSection("AppConfig").GetRequiredSection(nameof(AlphaVantageSettings)));
+
         AddPersistence(services, configuration);
 
         services.AddHttpClient("AlphaVantage", option =>

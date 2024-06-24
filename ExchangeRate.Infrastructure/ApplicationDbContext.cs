@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExchangeRate.Domain.ExchangeRates;
 
 namespace ExchangeRate.Infrastructure;
 public sealed class ApplicationDbContext : DbContext, IUnitOfWork
@@ -21,6 +22,7 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        modelBuilder.Entity<ExchangeRate.Domain.ExchangeRates.ExchangeRate>().ToTable("ExchangeRate", b => b.IsTemporal());
         base.OnModelCreating(modelBuilder);
     }
 

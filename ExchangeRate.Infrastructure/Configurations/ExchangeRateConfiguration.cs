@@ -15,18 +15,13 @@ internal sealed class ApartmentConfiguration : IEntityTypeConfiguration<Domain.E
 
         builder.HasKey(t => t.Id);
 
-        //builder.OwnsOne(x => x.Pair, p =>
-        //{
-        //    p.Property(c => c.Code).HasMaxLength(6);
-        //});
-
         builder.Property(c => c.Pair).IsRequired().HasMaxLength(6);
 
         builder.Property(c=>c.Pair)
             .IsRequired()
             .HasConversion(c=>c.Code,value=>CurrencyPair.FromCode(value));
 
-        builder.Property(c => c.Rate).IsRequired();
+        builder.Property(c => c.Rate).IsRequired().HasColumnType("decimal(18,5)");
 
         builder.Property(x => x.LastUpdateSource)
             .HasMaxLength(100)

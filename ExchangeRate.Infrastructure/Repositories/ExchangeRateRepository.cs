@@ -17,7 +17,9 @@ internal sealed class ExchangeRateRepository : Repository<Domain.ExchangeRates.E
 
     public async Task<Domain.ExchangeRates.ExchangeRate?> GetByCodeAsync(CurrencyPair code, CancellationToken cancellationToken = default)
     {
-        var exRate = await context.Set<Domain.ExchangeRates.ExchangeRate>().OrderByDescending(c=>c.LastUpdateOnUtc).FirstOrDefaultAsync(c => c.Pair == code);
-        return exRate;
+
+            var exRate = await context.Set<Domain.ExchangeRates.ExchangeRate>().FirstOrDefaultAsync(c => c.Pair == code);
+            return exRate;
+
     }
 }

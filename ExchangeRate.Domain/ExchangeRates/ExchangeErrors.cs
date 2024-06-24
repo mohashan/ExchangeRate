@@ -15,4 +15,8 @@ public static class ExchangeErrors
     public static Error InvalidRate = new(
         "Rate.InvalidRate",
         "The provided rate was invalid");
+
+    public static Error UnchangedRate = new(
+        "Rate.UnchangedRate",
+        "The provided rate was unchanged");
 }
